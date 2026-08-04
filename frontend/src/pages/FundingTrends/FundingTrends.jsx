@@ -84,10 +84,10 @@ export default function FundingTrends() {
   }, [])
 
   const barData = {
-    labels: sectorFunding.map((item) => item.sector),
+    labels: sectorFunding.map((item) => item.name || item.sector),
     datasets: [{
       label: 'Funding (Billion $)',
-      data: sectorFunding.map((item) => item.amount),
+      data: sectorFunding.map((item) => item.value || item.amount),
       backgroundColor: ['#8b5cf6','#3b82f6','#22d3a7','#f59e0b','#06b6d4','#ec4899'],
       borderRadius: 8,
     }],
@@ -105,11 +105,12 @@ export default function FundingTrends() {
     }],
   }
 
+  const stageColors = ['#8b5cf6','#3b82f6','#22d3a7','#f59e0b']
   const pieData = {
     labels: fundingStages.map((item) => item.stage),
     datasets: [{
-      data: fundingStages.map((item) => item.deals || item.percentage),
-      backgroundColor: fundingStages.map((item) => item.color || '#6b7280'),
+      data: fundingStages.map((item) => item.count || item.deals || item.percentage || 0),
+      backgroundColor: fundingStages.map((item, i) => item.color || stageColors[i % stageColors.length]),
     }],
   }
 

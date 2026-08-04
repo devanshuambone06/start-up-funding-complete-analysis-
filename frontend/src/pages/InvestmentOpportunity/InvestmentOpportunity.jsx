@@ -11,22 +11,23 @@ const icons = { marketTiming: Clock, sectorMomentum: TrendingUp, dealFlow: BarCh
 
 const DEFAULT_OVERALL = { score: 84, max: 100, label: 'High Opportunity Potential', summary: 'Favorable macroeconomic tailwinds and strong institutional deal flow in AI & Fintech.', changeSinceLastMonth: '+4.2%' }
 const DEFAULT_SCORE_CARDS = [
-  { key: 'marketTiming', title: 'Market Timing', score: 88, max: 100, summary: 'Optimal entry window for Series A & B funding rounds.' },
-  { key: 'sectorMomentum', title: 'Sector Momentum', score: 92, max: 100, summary: 'AI and DeepTech experiencing historic capital velocity.' },
-  { key: 'dealFlow', title: 'Deal Flow Quality', score: 79, max: 100, summary: 'High density of top-tier syndicate co-investments.' },
-  { key: 'riskIndex', title: 'Risk Index', score: 68, max: 100, summary: 'Controlled exposure across geographic hubs.' },
+  { key: 'marketTiming', title: 'Market Timing', value: 88, tag: 'Optimal', color: '#8b5cf6', summary: 'Optimal entry window for Series A & B funding rounds.' },
+  { key: 'sectorMomentum', title: 'Sector Momentum', value: 92, tag: 'Strong', color: '#22d3a7', summary: 'AI and DeepTech experiencing historic capital velocity.' },
+  { key: 'dealFlow', title: 'Deal Flow Quality', value: 79, tag: 'High', color: '#3b82f6', summary: 'High density of top-tier syndicate co-investments.' },
+  { key: 'riskIndex', title: 'Risk Index', value: 68, tag: 'Controlled', color: '#f59e0b', summary: 'Controlled exposure across geographic hubs.' },
 ]
 const DEFAULT_SECTORS = [
-  { sector: 'Artificial Intelligence', score: 95, dealCount: 1420, avgGrowth: '+42.8%', risk: 'Low' },
-  { sector: 'Fintech & Payments', score: 89, dealCount: 1180, avgGrowth: '+28.4%', risk: 'Low' },
-  { sector: 'HealthTech & Bio', score: 82, dealCount: 840, avgGrowth: '+21.5%', risk: 'Medium' },
-  { sector: 'Cybersecurity', score: 87, dealCount: 620, avgGrowth: '+31.2%', risk: 'Low' },
-  { sector: 'CleanTech & Energy', score: 76, dealCount: 510, avgGrowth: '+18.9%', risk: 'Medium' },
+  { name: 'Artificial Intelligence', rank: 1, score: 95, status: 'Hypergrowth', color: '#8b5cf6', change: 8.4 },
+  { name: 'Fintech & Payments', rank: 2, score: 89, status: 'Strong', color: '#3b82f6', change: 5.2 },
+  { name: 'HealthTech & Bio', rank: 3, score: 82, status: 'Steady', color: '#22d3a7', change: 3.1 },
+  { name: 'Cybersecurity', rank: 4, score: 87, status: 'Growing', color: '#f59e0b', change: 4.8 },
+  { name: 'CleanTech & Energy', rank: 5, score: 76, status: 'Emerging', color: '#ec4899', change: 2.9 },
 ]
 const DEFAULT_RISK_FACTORS = [
-  { factor: 'Valuation Premium', level: 'Moderate', impact: 'High valuation multiples in late-stage AI deals.' },
-  { factor: 'Macro Interest Rates', level: 'Controlled', impact: 'Stabilizing central bank rates improving liquidity.' },
-  { factor: 'Regulatory Horizon', level: 'Low', impact: 'Clearer EU & US AI safety compliance frameworks.' },
+  { name: 'Valuation Premium', level: 'Medium', impact: 'High valuation multiples in late-stage AI deals.' },
+  { name: 'Macro Interest Rates', level: 'Low', impact: 'Stabilizing central bank rates improving liquidity.' },
+  { name: 'Regulatory Horizon', level: 'Low', impact: 'Clearer EU & US AI safety compliance frameworks.' },
+  { name: 'Geopolitical Risk', level: 'Medium', impact: 'Ongoing supply chain disruptions in Asia.' },
 ]
 const DEFAULT_HISTORY = [
   { month: 'Jan', score: 76 },
