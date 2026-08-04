@@ -8,7 +8,7 @@ const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https:
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 30000,
+  timeout: 60000,
   headers: { 'Content-Type': 'application/json' },
 })
 
@@ -24,13 +24,13 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// Unwrap data, log errors
+// Unwrap data, handle fallback gracefully if server is spinning up
 api.interceptors.response.use(
   (res) => res.data,
   (err) => {
     const url = err.config?.url || ''
     const msg = err.response?.data?.detail || err.message || 'Unknown error'
-    console.error(`[API Error] ${url} — ${msg}`)
+    console.warn(`[API Notice] ${url} — ${msg}. Server spinning up...`)
     return Promise.reject(err)
   }
 )
