@@ -1,0 +1,215 @@
+/* ==========================
+   SECTOR PAGE
+========================== */
+
+.sector-page{
+    background:#0b1020;
+    min-height:100vh;
+    padding:30px;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.page-title{
+    margin-bottom:30px;
+}
+
+.page-title h1{
+    font-size:34px;
+    font-weight:700;
+}
+
+.page-title p{
+    margin-top:8px;
+    color:#9ca3af;
+    font-size:15px;
+}
+
+/* ==========================
+   SECTOR CARDS
+========================== */
+
+.sector-cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.sector-card{
+    background:#18223b;
+    border:1px solid #2b3a60;
+    border-radius:18px;
+    padding:22px;
+    transition:.3s;
+}
+
+.sector-card:hover{
+    transform:translateY(-5px);
+    border-color:#8b5cf6;
+}
+
+.sector-card h2{
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.sector-card h3{
+    font-size:34px;
+    color:#8b5cf6;
+    margin-bottom:10px;
+}
+
+.sector-card span{
+    display:inline-block;
+    padding:6px 14px;
+    background:#26355f;
+    border-radius:30px;
+    color:#9fd4ff;
+    margin-bottom:15px;
+}
+
+.sector-card p{
+    color:#22d3a7;
+    font-weight:600;
+}
+
+/* ==========================
+   CHARTS
+========================== */
+
+.chart-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    margin-bottom:35px;
+}
+
+.chart-box{
+    background:#18223b;
+    border:1px solid #2b3a60;
+    border-radius:20px;
+    padding:22px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+}
+
+.chart-box h3{
+    margin-bottom:20px;
+    font-size:22px;
+}
+
+.chart{
+    width:100%;
+    height:340px;
+    position:relative;
+}
+
+.pie-chart{
+    width:100%;
+    height:340px;
+    position:relative;
+}
+
+.chart canvas,
+.pie-chart canvas{
+    width:100% !important;
+    height:100% !important;
+}
+
+/* ==========================
+   TABLE
+========================== */
+
+.startup-table{
+    background:#18223b;
+    border:1px solid #2b3a60;
+    border-radius:20px;
+    padding:25px;
+}
+
+.startup-table h2{
+    margin-bottom:20px;
+}
+
+.startup-table table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.startup-table thead{
+    background:#1e2a48;
+}
+
+.startup-table th{
+    padding:16px;
+    text-align:left;
+    color:#8b5cf6;
+    font-weight:600;
+}
+
+.startup-table td{
+    padding:16px;
+    border-top:1px solid #2b3a60;
+}
+
+.startup-table tbody tr:hover{
+    background:#202d4c;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:1200px){
+
+.sector-cards{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.chart-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:768px){
+
+.sector-page{
+    padding:20px;
+}
+
+.page-title h1{
+    font-size:28px;
+}
+
+.sector-cards{
+    grid-template-columns:1fr;
+}
+
+.chart-grid{
+    grid-template-columns:1fr;
+}
+
+.chart{
+    height:280px;
+}
+
+.pie-chart{
+    height:280px;
+}
+
+.startup-table{
+    overflow-x:auto;
+}
+
+.startup-table table{
+    min-width:700px;
+}
+
+}

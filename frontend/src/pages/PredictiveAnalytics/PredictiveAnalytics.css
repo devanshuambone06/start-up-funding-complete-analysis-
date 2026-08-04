@@ -1,0 +1,198 @@
+/* =========================
+   PREDICT PAGE
+========================= */
+
+.predict-page{
+    min-height:100vh;
+    background:#0b1020;
+    padding:30px;
+    color:#fff;
+    font-family:"Poppins",sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.predict-header{
+    margin-bottom:35px;
+}
+
+.predict-header h1{
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.predict-header p{
+    color:#9ca3af;
+    font-size:17px;
+}
+
+/* =========================
+   PREDICTION CARDS
+========================= */
+
+.predict-cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.predict-card{
+    background:#1b2440;
+    border:1px solid #2f4374;
+    border-radius:18px;
+    padding:25px;
+    transition:.3s;
+}
+
+.predict-card:hover{
+    transform:translateY(-6px);
+    border-color:#8b5cf6;
+    box-shadow:0 10px 25px rgba(139,92,246,.2);
+}
+
+.predict-card h3{
+    font-size:20px;
+    color:#fff;
+    margin-bottom:15px;
+}
+
+.predict-card h2{
+    font-size:42px;
+    color:#8b5cf6;
+    margin-bottom:10px;
+}
+
+.predict-card span{
+    color:#22d3a7;
+    font-size:15px;
+    font-weight:500;
+}
+
+/* =========================
+   CHART CARD
+========================= */
+
+.chart-box{
+    background:#1b2440;
+    border:1px solid #2f4374;
+    border-radius:20px;
+    padding: 24px;
+    margin-bottom:35px;
+    overflow:hidden;
+}
+
+.chart-box h2{
+    font-size:20px;
+    font-weight: 700;
+    margin-bottom:20px;
+    color: #ffffff;
+}
+
+.chart-container{
+    position: relative;
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-container canvas{
+    max-width:100% !important;
+    max-height:100% !important;
+}
+
+/* =========================
+   RECOMMENDATIONS
+========================= */
+
+.recommendation-box{
+    background:#1b2440;
+    border:1px solid #2f4374;
+    border-radius:20px;
+    padding:25px;
+}
+
+.recommendation-box h2{
+    margin-bottom:25px;
+    font-size:28px;
+}
+
+.recommendation-box ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.recommendation-box li{
+    background:#222d4a;
+    border-left:5px solid #8b5cf6;
+    border-radius:12px;
+    padding:18px 20px;
+    margin-bottom:18px;
+    line-height:1.7;
+    color:#e5e7eb;
+    transition:.3s;
+}
+
+.recommendation-box li:hover{
+    background:#2a3657;
+    transform:translateX(6px);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+.chart-container{
+height:450px;
+}
+
+}
+
+@media(max-width:992px){
+
+.predict-cards{
+grid-template-columns:repeat(2,1fr);
+}
+
+.chart-container{
+height:380px;
+}
+
+}
+
+@media(max-width:768px){
+
+.predict-page{
+padding:20px;
+}
+
+.predict-header h1{
+font-size:30px;
+}
+
+.predict-cards{
+grid-template-columns:1fr;
+}
+
+.chart-container{
+height:300px;
+}
+
+.predict-card h2{
+font-size:34px;
+}
+
+.chart-box h2,
+.recommendation-box h2{
+font-size:22px;
+}
+
+}

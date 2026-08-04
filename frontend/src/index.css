@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+ 
+  --color-bg-base: #050715;
+  --color-bg-panel:#0c0f24;
+  --color-bg-sunken:#070919;
+  --color-bg-field: #21262d;
+
+ 
+  --color-border: #30363d;
+  --color-border-subtle: #21262d;
+
+  --color-text-primary: #ffffff;
+  --color-text-muted: #8b949e;
+
+ 
+  --color-brand-purple: #8b5cf6;
+  --color-brand-blue: #3b82f6;
+
+ 
+  --color-accent-green: #10b981;
+  --color-accent-red: #f87171;
+  --color-accent-amber: #f59e0b;
+  --color-accent-yellow: #eab308;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-orange: #ea580c;
+  --color-accent-slate: #94a3b8;
+
+  --color-sector-fintech: #3b82f6;
+  --color-sector-healthtech: #10b981;
+  --color-sector-cleantech: #059669;
+  --color-sector-edtech: #eab308;
+  --color-sector-ai: #8b5cf6;
+  --color-sector-ecommerce: #f97316;
+  --color-sector-cybersecurity: #ec4899;
+  --color-sector-deeptech: #6366f1;
+
+ 
+  --background-image-brand-gradient: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  --background-image-brand-gradient-h: linear-gradient(90deg, #8b5cf6, #3b82f6);
+  --background-image-deal-gradient: linear-gradient(90deg, #3b82f6, #8b5cf6, #f59e0b);
+
+
+  --font-poppins: "Poppins", sans-serif;
+
+}
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+ 
+
+  body {
+    @apply bg-bg-base font-sans;
+    
+    margin: 0;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #161b22;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+  }
+   select.input {
+    /* background-color: #ffffff !important; */
+    color: #707277 !important;
+    border-color: #cbd5e1 !important;
+    font-size: 12px;
+    outline: none;
+    
+    width: 50%;
+    height: 40px;
+    opacity: 50;
+   border: 1px solid rgb(13, 13, 47);
+    border-radius: 15px;
+     padding-left: 4px;
+  }
+
+  select.input option {
+  background-color: transparent;
+    color: #0f172a;
+    
+  }
+  .input{
+font-size: 12px;
+  }
+ 
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

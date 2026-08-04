@@ -1,0 +1,185 @@
+/* =========================
+   GEOGRAPHIC PAGE
+========================= */
+
+.geographic-page{
+    background:#0b1020;
+    min-height:100vh;
+    padding:30px;
+    color:#fff;
+    font-family:Poppins,sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.geo-header{
+    margin-bottom:35px;
+}
+
+.geo-header h1{
+    font-size:38px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.geo-header p{
+    color:#9ca3af;
+    font-size:16px;
+}
+
+/* =========================
+   SUMMARY CARDS
+========================= */
+
+.geo-summary{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(180px,1fr));
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.summary-card{
+    background:#18223b;
+    border:1px solid #2b3a60;
+    border-radius:18px;
+    padding:22px;
+    transition:.3s;
+}
+
+.summary-card:hover{
+    transform:translateY(-6px);
+    border-color:#8b5cf6;
+}
+
+.summary-card h4{
+    color:#9ca3af;
+    margin-bottom:12px;
+    font-size:15px;
+}
+
+.summary-card h2{
+    font-size:30px;
+    color:#8b5cf6;
+}
+
+/* =========================
+   CHARTS
+========================= */
+
+.geo-chart-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+    margin-bottom:35px;
+}
+
+.chart-box{
+    background:#18223b;
+    border:1px solid #2b3a60;
+    border-radius:18px;
+    padding:22px;
+}
+
+.chart-box h2{
+    margin-bottom:20px;
+    font-size:24px;
+}
+
+.chart-container{
+    position:relative;
+    width:100%;
+    height:380px;
+}
+
+.chart-container canvas{
+    width:100%!important;
+    height:100%!important;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.hub-table{
+    background:#18223b;
+    border:1px solid #2b3a60;
+    border-radius:18px;
+    padding:22px;
+    overflow-x:auto;
+}
+
+.hub-table h2{
+    margin-bottom:20px;
+}
+
+.hub-table table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.hub-table th{
+    background:#111827;
+    color:#8b5cf6;
+    padding:16px;
+    text-align:left;
+}
+
+.hub-table td{
+    padding:16px;
+    border-bottom:1px solid #2b3a60;
+}
+
+.hub-table tr:hover{
+    background:#1f2946;
+}
+
+.growth{
+    color:#22d3a7;
+    font-weight:600;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1300px){
+
+.geo-summary{
+    grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+@media(max-width:992px){
+
+.geo-chart-grid{
+    grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:768px){
+
+.geographic-page{
+    padding:20px;
+}
+
+.geo-header h1{
+    font-size:30px;
+}
+
+.geo-summary{
+    grid-template-columns:1fr;
+}
+
+.chart-container{
+    height:340px;
+}
+
+.hub-table table{
+    min-width:850px;
+}
+
+}
