@@ -12,15 +12,8 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
-// Attach user email header for logging purposes
+// Request interceptor
 api.interceptors.request.use((config) => {
-  try {
-    const user = localStorage.getItem('sfa_user') || sessionStorage.getItem('sfa_user')
-    if (user) {
-      const parsed = JSON.parse(user)
-      if (parsed?.email) config.headers['X-User'] = parsed.email
-    }
-  } catch (_) { /* ignore parse errors */ }
   return config
 })
 
