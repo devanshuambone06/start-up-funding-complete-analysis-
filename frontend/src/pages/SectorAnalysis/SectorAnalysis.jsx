@@ -145,7 +145,7 @@ export default function Sectors() {
                 <td>{startup.rank}</td>
                 <td>{startup.name}</td>
                 <td>{startup.sector}</td>
-                <td>{startup.totalFunding}</td>
+                <td>{startup.totalFunding || startup.fundingRaised || (startup.totalFundingUSD ? `$${(startup.totalFundingUSD / 1e9).toFixed(1)}B` : '—')}</td>
                 <td>{startup.stage}</td>
               </tr>
             ))}

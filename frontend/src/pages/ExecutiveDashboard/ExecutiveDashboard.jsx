@@ -32,24 +32,24 @@ const DEFAULT_GROWTH = [
   { year: '2024', amount: 228.9 },
 ]
 const DEFAULT_SECTOR_FUNDING = [
-  { name: 'AI', value: 315 },
-  { name: 'Fintech', value: 285 },
-  { name: 'HealthTech', value: 195 },
-  { name: 'E-commerce', value: 140 },
-  { name: 'Cybersecurity', value: 106 },
+  { sector: 'AI', amount: 315, name: 'AI', value: 315 },
+  { sector: 'Fintech', amount: 285, name: 'Fintech', value: 285 },
+  { sector: 'HealthTech', amount: 195, name: 'HealthTech', value: 195 },
+  { sector: 'E-commerce', amount: 140, name: 'E-commerce', value: 140 },
+  { sector: 'Cybersecurity', amount: 106, name: 'Cybersecurity', value: 106 },
 ]
 const DEFAULT_STAGES = [
-  { stage: 'Seed', count: 18500 },
-  { stage: 'Series A', count: 9400 },
-  { stage: 'Series B', count: 3200 },
-  { stage: 'Series C+', count: 1527 },
+  { stage: 'Seed', count: 18500, deals: '18.5k', percentage: 52, color: '#8b5cf6' },
+  { stage: 'Series A', count: 9400, deals: '9.4k', percentage: 26, color: '#3b82f6' },
+  { stage: 'Series B', count: 3200, deals: '3.2k', percentage: 14, color: '#10b981' },
+  { stage: 'Series C+', count: 1527, deals: '1.5k', percentage: 8, color: '#f59e0b' },
 ]
 const DEFAULT_STARTUPS = [
-  { name: 'Stripe', sector: 'Fintech', stage: 'Series I', fundingRaised: '$8.7B', country: 'USA', rank: 1 },
-  { name: 'Databricks', sector: 'AI & Data', stage: 'Series H', fundingRaised: '$4.2B', country: 'USA', rank: 2 },
-  { name: 'Scale AI', sector: 'AI', stage: 'Series F', fundingRaised: '$1.6B', country: 'USA', rank: 3 },
-  { name: 'Revolut', sector: 'Fintech', stage: 'Series E', fundingRaised: '$1.7B', country: 'GBR', rank: 4 },
-  { name: 'Canva', sector: 'Design', stage: 'Series C', fundingRaised: '$560M', country: 'AUS', rank: 5 },
+  { name: 'Stripe', sector: 'Fintech', stage: 'Series I', totalFunding: '$8.7B', fundingRaised: '$8.7B', country: 'USA', rank: 1 },
+  { name: 'Databricks', sector: 'AI', stage: 'Series H', totalFunding: '$4.2B', fundingRaised: '$4.2B', country: 'USA', rank: 2 },
+  { name: 'Scale AI', sector: 'AI', stage: 'Series F', totalFunding: '$1.6B', fundingRaised: '$1.6B', country: 'USA', rank: 3 },
+  { name: 'Revolut', sector: 'Fintech', stage: 'Series E', totalFunding: '$1.7B', fundingRaised: '$1.7B', country: 'GBR', rank: 4 },
+  { name: 'Canva', sector: 'E-commerce', stage: 'Series C', totalFunding: '$560M', fundingRaised: '$560M', country: 'AUS', rank: 5 },
 ]
 const DEFAULT_DEAL_SIZE = { minDeal: '$100K', avgDeal: '$32.8M', maxDeal: '$29.6B', maxDealCompany: 'Veritas', totalDeals: 52627 }
 
@@ -71,23 +71,41 @@ export default function ExecutiveDashboard() {
       if (overviewRes.status === 'fulfilled' && overviewRes.value) {
         const ov = overviewRes.value
         setStats({
-          totalFunding: ov.totalFundingB || 0,
-          totalStartups: ov.totalCompanies || 0,
-          activeInvestors: ov.activeInvestors || 0,
-          fundingRounds: ov.totalRounds || 0,
+          totalFunding: ov.totalFundingB || DEFAULT_STATS.totalFunding,
+          totalStartups: ov.totalCompanies || DEFAULT_STATS.totalStartups,
+          activeInvestors: ov.activeInvestors || DEFAULT_STATS.activeInvestors,
+          fundingRounds: ov.totalRounds || DEFAULT_STATS.fundingRounds,
         })
       }
       if (trendsRes.status === 'fulfilled' && trendsRes.value) {
         const t = trendsRes.value
         if (t.fundingGrowth?.length) setFundingGrowth(t.fundingGrowth)
-        if (t.sectorFunding?.length) setSectorFunding(t.sectorFunding)
-        if (t.fundingStages?.length) setFundingStages(t.fundingStages)
+        if (t.sectorFunding?.length) {
+          setSectorFunding(t.sectorFunding.map(s => ({
+            ...s,
+            sector: s.sector || s.name,
+            amount: s.amount || s.value
+          })))
+        }
+        if (t.fundingStages?.length) {
+          setFundingStages(t.fundingStages.map((s, i) => ({
+            ...s,
+            stage: s.stage,
+            percentage: s.percentage || Math.round((s.count / 32627) * 100) || 20,
+            deals: s.deals || (s.count ? `${(s.count / 1000).toFixed(1)}k` : '1k'),
+            color: s.color || ['#8b5cf6','#3b82f6','#10b981','#f59e0b'][i % 4]
+          })))
+        }
         if (t.dealSize) setDealSize(t.dealSize)
       }
       if (startupsRes.status === 'fulfilled' && startupsRes.value?.data?.length) {
-        setTopStartups(startupsRes.value.data.slice(0, 10).map((s, i) => ({ ...s, rank: i + 1 })))
+        setTopStartups(startupsRes.value.data.slice(0, 10).map((s, i) => ({
+          ...s,
+          rank: i + 1,
+          totalFunding: s.totalFunding || s.fundingRaised || (s.totalFundingUSD ? `$${(s.totalFundingUSD / 1e9).toFixed(1)}B` : '—')
+        })))
       }
-    }).finally(() => setLoading(false))
+    }).catch(() => {})
   }, [])
 
   return (
