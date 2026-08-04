@@ -12,13 +12,31 @@ function sectorStyle(sector) {
   return { color: c, backgroundColor: c + '22', borderColor: c + '55' }
 }
 
+const DEFAULT_DB_STARTUPS = [
+  { name: 'Stripe', sector: 'Fintech', stage: 'Series I', country: 'USA', totalFundingUSD: 8700000000, fundingRaised: '$8.7B', rounds: 19, isSuccessful: true },
+  { name: 'Databricks', sector: 'AI & ML', stage: 'Series H', country: 'USA', totalFundingUSD: 4200000000, fundingRaised: '$4.2B', rounds: 11, isSuccessful: true },
+  { name: 'SpaceX', sector: 'DeepTech', stage: 'Series C+', country: 'USA', totalFundingUSD: 9870000000, fundingRaised: '$9.87B', rounds: 24, isSuccessful: true },
+  { name: 'Revolut', sector: 'Fintech', stage: 'Series E', country: 'GBR', totalFundingUSD: 1700000000, fundingRaised: '$1.7B', rounds: 8, isSuccessful: true },
+  { name: 'Scale AI', sector: 'AI & ML', stage: 'Series F', country: 'USA', totalFundingUSD: 1600000000, fundingRaised: '$1.6B', rounds: 7, isSuccessful: true },
+  { name: 'Canva', sector: 'E-commerce', stage: 'Series C+', country: 'AUS', totalFundingUSD: 560000000, fundingRaised: '$560M', rounds: 5, isSuccessful: true },
+  { name: 'Razorpay', sector: 'Fintech', stage: 'Series F', country: 'IND', totalFundingUSD: 741000000, fundingRaised: '$741M', rounds: 9, isSuccessful: true },
+  { name: 'BioNTech', sector: 'HealthTech', stage: 'Series B', country: 'DEU', totalFundingUSD: 1500000000, fundingRaised: '$1.5B', rounds: 6, isSuccessful: true },
+  { name: 'Figma', sector: 'AI & ML', stage: 'Series E', country: 'USA', totalFundingUSD: 330000000, fundingRaised: '$330M', rounds: 5, isSuccessful: true },
+  { name: 'Wiz', sector: 'AI & ML', stage: 'Series D', country: 'USA', totalFundingUSD: 900000000, fundingRaised: '$900M', rounds: 4, isSuccessful: true },
+  { name: 'Notion', sector: 'AI & ML', stage: 'Series C', country: 'USA', totalFundingUSD: 343000000, fundingRaised: '$343M', rounds: 4, isSuccessful: true },
+  { name: 'Zerodha', sector: 'Fintech', stage: 'Seed', country: 'IND', totalFundingUSD: 0, fundingRaised: '$0 (Bootstrapped)', rounds: 0, isSuccessful: true },
+  { name: 'Meesho', sector: 'E-commerce', stage: 'Series F', country: 'IND', totalFundingUSD: 1100000000, fundingRaised: '$1.1B', rounds: 8, isSuccessful: true },
+  { name: 'N26', sector: 'Fintech', stage: 'Series E', country: 'DEU', totalFundingUSD: 1100000000, fundingRaised: '$1.1B', rounds: 7, isSuccessful: false },
+  { name: 'Ola Electric', sector: 'CleanTech', stage: 'Series C+', country: 'IND', totalFundingUSD: 920000000, fundingRaised: '$920M', rounds: 6, isSuccessful: true },
+]
+
 export default function StartupPerformance() {
   const [query, setQuery] = useState('')
   const [stage, setStage] = useState('All Stages')
   const [open, setOpen] = useState(false)
   const [sortDesc, setSortDesc] = useState(true)
-  const [allStartups, setAllStartups] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [allStartups, setAllStartups] = useState(DEFAULT_DB_STARTUPS)
+  const [loading, setLoading] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const [addForm, setAddForm] = useState({
     name: '',
