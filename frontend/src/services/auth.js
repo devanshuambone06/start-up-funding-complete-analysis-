@@ -107,10 +107,12 @@ async function issueBackendToken(userData) {
 // ── Google Sign-In ────────────────────────────────────────────────────────────
 export async function signInWithGoogle() {
   if (!isFirebaseConfigured || !auth) {
+    const userEmail = window.prompt('Enter your Google email address to sign in:', 'devanshuambone06@gmail.com')
+    if (!userEmail) return { success: false, error: 'Sign-in cancelled' }
     const fallbackUser = {
       uid: 'google-user-' + Date.now(),
-      email: 'user.google@athenura.in',
-      name: 'Google User',
+      email: userEmail,
+      name: userEmail.split('@')[0] || 'Google User',
       photoURL: null,
       provider: 'google',
     }
@@ -118,6 +120,9 @@ export async function signInWithGoogle() {
     return { success: true, user: fallbackUser }
   }
   try {
+    if (googleProvider) {
+      googleProvider.setCustomParameters({ prompt: 'select_account' })
+    }
     const result = await signInWithPopup(auth, googleProvider)
     const u = result.user
     const userData = {
@@ -143,9 +148,6 @@ export async function signInWithGoogle() {
       }
     }
 
-    // Catch ALL Firebase config/key/domain errors and fall back gracefully.
-    // Note: Firebase error code is 'auth/api-key-not-valid.-please-pass-a-valid-api-key.'
-    // So we do a broad check on both errCode and errMsg strings.
     const isConfigError = (
       errCode.includes('api-key') ||
       errCode.includes('api_key') ||
@@ -164,11 +166,12 @@ export async function signInWithGoogle() {
     )
 
     if (isConfigError) {
-      console.info('[Auth Fallback] Firebase config issue detected. Using local Google auth fallback.')
+      const userEmail = window.prompt('Enter your Google email address to sign in:', 'devanshuambone06@gmail.com')
+      if (!userEmail) return { success: false, error: 'Sign-in cancelled' }
       const fallbackUser = {
         uid: 'google-user-' + Date.now(),
-        email: 'user.google@athenura.in',
-        name: 'Google User',
+        email: userEmail,
+        name: userEmail.split('@')[0] || 'Google User',
         photoURL: null,
         provider: 'google',
       }
