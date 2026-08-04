@@ -109,8 +109,8 @@ export async function signInWithGoogle() {
   if (!isFirebaseConfigured || !auth) {
     const fallbackUser = {
       uid: 'google-user-' + Date.now(),
-      email: 'devanshuambone06@gmail.com',
-      name: 'Devanshu Ambone',
+      email: 'user.google@athenura.in',
+      name: 'Google User',
       photoURL: null,
       provider: 'google',
     }
@@ -126,7 +126,7 @@ export async function signInWithGoogle() {
     const userData = {
       uid: u.uid,
       email: u.email,
-      name: u.displayName || u.email?.split('@')[0] || 'Devanshu Ambone',
+      name: u.displayName || u.email?.split('@')[0] || 'Google User',
       photoURL: u.photoURL,
       provider: 'google',
     }
@@ -166,8 +166,8 @@ export async function signInWithGoogle() {
     if (isConfigError) {
       const fallbackUser = {
         uid: 'google-user-' + Date.now(),
-        email: 'devanshuambone06@gmail.com',
-        name: 'Devanshu Ambone',
+        email: 'user.google@athenura.in',
+        name: 'Google User',
         photoURL: null,
         provider: 'google',
       }
