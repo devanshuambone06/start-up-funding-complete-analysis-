@@ -49,7 +49,7 @@ export default function InvestmentOpportunity() {
     fetchOpportunity()
       .then((data) => {
         if (!data) return
-        if (data.overallScore) setOverallScore(data.overallScore)
+        if (data.overallScore) setOverallScore((prev) => ({ ...prev, ...data.overallScore }))
         if (data.scoreCards?.length) setScoreCards(data.scoreCards)
         if (data.sectors?.length) setSectors(data.sectors)
         if (data.riskFactors?.length) setRiskFactors(data.riskFactors)
