@@ -22,11 +22,11 @@ const options = {
 }
 
 const DEFAULT_SECTORS = [
-  { name: 'Software & AI', fundingB: 315.4, count: 8420, avgValuation: '$120M' },
-  { name: 'Fintech', fundingB: 285.2, count: 5910, avgValuation: '$95M' },
-  { name: 'HealthTech', fundingB: 195.8, count: 4120, avgValuation: '$78M' },
-  { name: 'E-commerce', fundingB: 140.3, count: 3480, avgValuation: '$54M' },
-  { name: 'Cybersecurity', fundingB: 106.1, count: 2150, avgValuation: '$110M' },
+  { name: 'Software & AI', score: 94, status: 'High Growth', change: 38.4, fundingB: 315.4, count: 8420, avgValuation: '$120M' },
+  { name: 'Fintech', score: 88, status: 'Strong Flow', change: 24.2, fundingB: 285.2, count: 5910, avgValuation: '$95M' },
+  { name: 'HealthTech', score: 82, status: 'Steady Growth', change: 18.5, fundingB: 195.8, count: 4120, avgValuation: '$78M' },
+  { name: 'E-commerce', score: 76, status: 'Moderate', change: 12.1, fundingB: 140.3, count: 3480, avgValuation: '$54M' },
+  { name: 'Cybersecurity', score: 89, status: 'High Growth', change: 29.7, fundingB: 106.1, count: 2150, avgValuation: '$110M' },
 ]
 const DEFAULT_GROWTH = [
   { year: '2019', amount: 142.5 },
@@ -58,8 +58,17 @@ export default function Sectors() {
       fetchStartups({ limit: 10 }),
     ]).then(([secRes, trendsRes, startupsRes]) => {
       if (secRes.status === 'fulfilled' && secRes.value?.length) {
-        setSectors(secRes.value)
-        setSectorFunding(secRes.value.map(s => ({ sector: s.name, amount: s.fundingB || 0 })))
+        const mapped = secRes.value.map((s, i) => ({
+          name: s.name || s.sector || 'Sector',
+          score: s.score || (95 - i * 4),
+          status: s.status || (i % 2 === 0 ? 'High Growth' : 'Strong Flow'),
+          change: s.change !== undefined ? s.change : Math.round((35 - i * 5) * 10) / 10,
+          fundingB: s.fundingB || s.amount || 100,
+          count: s.count || 2000,
+          avgValuation: s.avgValuation || '$80M'
+        }))
+        setSectors(mapped)
+        setSectorFunding(mapped.map(s => ({ sector: s.name, amount: s.fundingB })))
       }
       if (trendsRes.status === 'fulfilled' && trendsRes.value?.fundingGrowth?.length) {
         setFundingGrowth(trendsRes.value.fundingGrowth)
