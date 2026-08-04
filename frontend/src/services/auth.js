@@ -81,7 +81,7 @@ if (isFirebaseConfigured) {
 // ── Helper to request FastAPI JWT Token ──────────────────────────────────────
 async function issueBackendToken(userData) {
   try {
-    const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+    const baseUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://start-up-funding-complete-analysis.onrender.com' : 'http://localhost:8000')
     const res = await fetch(`${baseUrl}/api/auth/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
