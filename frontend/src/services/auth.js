@@ -107,12 +107,10 @@ async function issueBackendToken(userData) {
 // ── Google Sign-In ────────────────────────────────────────────────────────────
 export async function signInWithGoogle() {
   if (!isFirebaseConfigured || !auth) {
-    const userEmail = window.prompt('Enter your Google email address to sign in:', 'devanshuambone06@gmail.com')
-    if (!userEmail) return { success: false, error: 'Sign-in cancelled' }
     const fallbackUser = {
       uid: 'google-user-' + Date.now(),
-      email: userEmail,
-      name: userEmail.split('@')[0] || 'Google User',
+      email: 'devanshuambone06@gmail.com',
+      name: 'Devanshu Ambone',
       photoURL: null,
       provider: 'google',
     }
@@ -128,7 +126,7 @@ export async function signInWithGoogle() {
     const userData = {
       uid: u.uid,
       email: u.email,
-      name: u.displayName || u.email?.split('@')[0] || 'Google User',
+      name: u.displayName || u.email?.split('@')[0] || 'Devanshu Ambone',
       photoURL: u.photoURL,
       provider: 'google',
     }
@@ -166,12 +164,10 @@ export async function signInWithGoogle() {
     )
 
     if (isConfigError) {
-      const userEmail = window.prompt('Enter your Google email address to sign in:', 'devanshuambone06@gmail.com')
-      if (!userEmail) return { success: false, error: 'Sign-in cancelled' }
       const fallbackUser = {
         uid: 'google-user-' + Date.now(),
-        email: userEmail,
-        name: userEmail.split('@')[0] || 'Google User',
+        email: 'devanshuambone06@gmail.com',
+        name: 'Devanshu Ambone',
         photoURL: null,
         provider: 'google',
       }
