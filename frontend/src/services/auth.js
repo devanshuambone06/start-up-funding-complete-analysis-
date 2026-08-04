@@ -105,17 +105,21 @@ async function issueBackendToken(userData) {
 }
 
 // ── Google Sign-In ────────────────────────────────────────────────────────────
-export async function signInWithGoogle() {
-  if (!isFirebaseConfigured || !auth) {
-    const fallbackUser = {
+export async function signInWithGoogle(customUser = null) {
+  if (customUser) {
+    const userObj = {
       uid: 'google-user-' + Date.now(),
-      email: 'user.google@athenura.in',
-      name: 'Google User',
-      photoURL: null,
+      email: customUser.email || 'user.google@athenura.in',
+      name: customUser.name || customUser.email?.split('@')[0] || 'Google User',
+      photoURL: customUser.photoURL || null,
       provider: 'google',
     }
-    await issueBackendToken(fallbackUser)
-    return { success: true, user: fallbackUser }
+    await issueBackendToken(userObj)
+    return { success: true, user: userObj }
+  }
+
+  if (!isFirebaseConfigured || !auth) {
+    return { requiresAccountChoice: true }
   }
   try {
     if (googleProvider) {
@@ -164,15 +168,7 @@ export async function signInWithGoogle() {
     )
 
     if (isConfigError) {
-      const fallbackUser = {
-        uid: 'google-user-' + Date.now(),
-        email: 'user.google@athenura.in',
-        name: 'Google User',
-        photoURL: null,
-        provider: 'google',
-      }
-      await issueBackendToken(fallbackUser)
-      return { success: true, user: fallbackUser }
+      return { requiresAccountChoice: true }
     }
 
     return { success: false, error: friendlyError(err.code) || err.message }

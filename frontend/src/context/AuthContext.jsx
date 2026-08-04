@@ -83,8 +83,8 @@ export function AuthProvider({ children }) {
   }, [])
 
   // ── Google Sign-In ──────────────────────────────────────────────────────────
-  const loginWithGoogle = useCallback(async (remember = true) => {
-    const res = await fbGoogle()
+  const loginWithGoogle = useCallback(async (remember = true, customUser = null) => {
+    const res = await fbGoogle(customUser)
     if (res.success && res.user) {
       saveUser(res.user, remember)
       setUser(res.user)

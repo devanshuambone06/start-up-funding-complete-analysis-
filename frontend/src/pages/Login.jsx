@@ -67,6 +67,134 @@ function SuccessBox({ msg }) {
   )
 }
 
+// ── Google Account Chooser Modal ──────────────────────────────────────────────
+function GoogleAccountModal({ onClose, onSelect }) {
+  const [customMode, setCustomMode] = useState(false)
+  const [customEmail, setCustomEmail] = useState('')
+  const [customName, setCustomName] = useState('')
+  const [err, setErr] = useState('')
+
+  const accounts = [
+    { name: 'Devanshu Ambone', email: 'devanshu.ambone@gmail.com', avatar: 'D', color: '#8b5cf6' },
+    { name: 'Raju Analytics', email: 'raju.analytics@gmail.com', avatar: 'R', color: '#3b82f6' },
+    { name: 'Athenura Admin', email: 'admin.user@athenura.in', avatar: 'A', color: '#10b981' },
+    { name: 'Startup Investor', email: 'investor.demo@gmail.com', avatar: 'I', color: '#f59e0b' },
+  ]
+
+  const handleCustomSubmit = (e) => {
+    e.preventDefault()
+    if (!customEmail.includes('@')) {
+      setErr('Please enter a valid Gmail / Email address.')
+      return
+    }
+    onSelect({ name: customName.trim() || customEmail.split('@')[0], email: customEmail.trim() })
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+      <div className="w-full max-w-md bg-slate-900 border border-slate-700/60 rounded-2xl p-6 shadow-2xl space-y-5">
+        {/* Header */}
+        <div className="text-center">
+          <div className="w-12 h-12 rounded-full bg-slate-800 border border-slate-700 mx-auto flex items-center justify-center mb-3">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-white">Choose a Google Account</h3>
+          <p className="text-xs text-slate-400 mt-1">Select an account to sign in to Startup Analytics</p>
+        </div>
+
+        {err && <div className="bg-red-500/10 border border-red-500/30 rounded-xl px-3 py-2 text-xs text-red-400">{err}</div>}
+
+        {!customMode ? (
+          <div className="space-y-2">
+            {accounts.map((acc) => (
+              <button
+                key={acc.email}
+                type="button"
+                onClick={() => onSelect(acc)}
+                className="w-full flex items-center gap-3.5 p-3 rounded-xl border border-slate-800 bg-slate-950/60 hover:bg-slate-800/80 hover:border-slate-600 transition-all text-left group"
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0"
+                  style={{ backgroundColor: acc.color }}
+                >
+                  {acc.avatar}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-white group-hover:text-violet-300 transition-colors truncate">{acc.name}</p>
+                  <p className="text-xs text-slate-400 truncate">{acc.email}</p>
+                </div>
+              </button>
+            ))}
+
+            <button
+              type="button"
+              onClick={() => setCustomMode(true)}
+              className="w-full flex items-center gap-3 p-3 rounded-xl border border-dashed border-slate-700 bg-transparent text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 hover:border-violet-500/50 transition-all text-sm font-medium"
+            >
+              <span className="w-9 h-9 rounded-full bg-violet-500/20 flex items-center justify-center text-base">+</span>
+              <span>Use another Gmail account</span>
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleCustomSubmit} className="space-y-3.5">
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-400 uppercase mb-1">Your Name</label>
+              <input
+                type="text"
+                value={customName}
+                onChange={(e) => setCustomName(e.target.value)}
+                placeholder="e.g. Devanshu Ambone"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white outline-none focus:border-violet-500"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-slate-400 uppercase mb-1">Gmail / Email Address *</label>
+              <input
+                type="email"
+                required
+                value={customEmail}
+                onChange={(e) => setCustomEmail(e.target.value)}
+                placeholder="you@gmail.com"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white outline-none focus:border-violet-500"
+              />
+            </div>
+            <div className="flex gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setCustomMode(false)}
+                className="flex-1 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700"
+              >
+                Back
+              </button>
+              <button
+                type="submit"
+                className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 text-white text-xs font-bold hover:from-violet-500 hover:to-blue-500"
+              >
+                Continue
+              </button>
+            </div>
+          </form>
+        )}
+
+        <div className="pt-2 border-t border-slate-800 text-center">
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-xs text-slate-500 hover:text-slate-300 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Login() {
   const navigate = useNavigate()
   const { user, loading, loginWithGoogle, loginWithEmail, signup, forgotPassword } = useAuth()
@@ -99,15 +227,31 @@ export default function Login() {
   const set = (k) => (e) => { setForm((f) => ({ ...f, [k]: e.target.value })); setError('') }
   const go = (m) => { setMode(m); setError('') }
 
+  const [showGoogleModal, setShowGoogleModal] = useState(false)
+
   // ── Google sign-in ──────────────────────────────────────────────────────────
   const handleGoogle = async () => {
     setGoogleBusy(true)
     setError('')
     const res = await loginWithGoogle(remember)
-    if (res.success) {
+    if (res.requiresAccountChoice) {
+      setShowGoogleModal(true)
+    } else if (res.success) {
       navigate('/dashboard')
     } else {
       setError(res.error || 'Google Sign-In failed. Please try again.')
+    }
+    setGoogleBusy(false)
+  }
+
+  const handleSelectGoogleAccount = async (account) => {
+    setGoogleBusy(true)
+    setShowGoogleModal(false)
+    const res = await loginWithGoogle(remember, account)
+    if (res.success) {
+      navigate('/dashboard')
+    } else {
+      setError(res.error || 'Login failed. Please try again.')
     }
     setGoogleBusy(false)
   }
@@ -311,6 +455,14 @@ export default function Login() {
               {isSignup ? 'Sign in' : 'Sign up free'}
             </button>
           </p>
+
+          {/* Google Account Selector Modal */}
+          {showGoogleModal && (
+            <GoogleAccountModal
+              onClose={() => setShowGoogleModal(false)}
+              onSelect={handleSelectGoogleAccount}
+            />
+          )}
     </PageShell>
   )
 }
