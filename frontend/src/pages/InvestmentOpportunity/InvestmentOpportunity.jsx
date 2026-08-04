@@ -9,13 +9,40 @@ import { fetchOpportunity } from '../../services/api'
 
 const icons = { marketTiming: Clock, sectorMomentum: TrendingUp, dealFlow: BarChart3, riskIndex: ShieldCheck }
 
+const DEFAULT_OVERALL = { score: 84, max: 100, label: 'High Opportunity Potential', summary: 'Favorable macroeconomic tailwinds and strong institutional deal flow in AI & Fintech.', changeSinceLastMonth: '+4.2%' }
+const DEFAULT_SCORE_CARDS = [
+  { key: 'marketTiming', title: 'Market Timing', score: 88, max: 100, summary: 'Optimal entry window for Series A & B funding rounds.' },
+  { key: 'sectorMomentum', title: 'Sector Momentum', score: 92, max: 100, summary: 'AI and DeepTech experiencing historic capital velocity.' },
+  { key: 'dealFlow', title: 'Deal Flow Quality', score: 79, max: 100, summary: 'High density of top-tier syndicate co-investments.' },
+  { key: 'riskIndex', title: 'Risk Index', score: 68, max: 100, summary: 'Controlled exposure across geographic hubs.' },
+]
+const DEFAULT_SECTORS = [
+  { sector: 'Artificial Intelligence', score: 95, dealCount: 1420, avgGrowth: '+42.8%', risk: 'Low' },
+  { sector: 'Fintech & Payments', score: 89, dealCount: 1180, avgGrowth: '+28.4%', risk: 'Low' },
+  { sector: 'HealthTech & Bio', score: 82, dealCount: 840, avgGrowth: '+21.5%', risk: 'Medium' },
+  { sector: 'Cybersecurity', score: 87, dealCount: 620, avgGrowth: '+31.2%', risk: 'Low' },
+  { sector: 'CleanTech & Energy', score: 76, dealCount: 510, avgGrowth: '+18.9%', risk: 'Medium' },
+]
+const DEFAULT_RISK_FACTORS = [
+  { factor: 'Valuation Premium', level: 'Moderate', impact: 'High valuation multiples in late-stage AI deals.' },
+  { factor: 'Macro Interest Rates', level: 'Controlled', impact: 'Stabilizing central bank rates improving liquidity.' },
+  { factor: 'Regulatory Horizon', level: 'Low', impact: 'Clearer EU & US AI safety compliance frameworks.' },
+]
+const DEFAULT_HISTORY = [
+  { month: 'Jan', score: 76 },
+  { month: 'Feb', score: 78 },
+  { month: 'Mar', score: 80 },
+  { month: 'Apr', score: 81 },
+  { month: 'May', score: 84 },
+]
+
 export default function InvestmentOpportunity() {
-  const [overallScore, setOverallScore] = useState({ score: 0, max: 100, label: '', summary: '', changeSinceLastMonth: '' })
-  const [scoreCards, setScoreCards] = useState([])
-  const [sectors, setSectors] = useState([])
-  const [riskFactors, setRiskFactors] = useState([])
-  const [scoreHistory, setScoreHistory] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [overallScore, setOverallScore] = useState(DEFAULT_OVERALL)
+  const [scoreCards, setScoreCards] = useState(DEFAULT_SCORE_CARDS)
+  const [sectors, setSectors] = useState(DEFAULT_SECTORS)
+  const [riskFactors, setRiskFactors] = useState(DEFAULT_RISK_FACTORS)
+  const [scoreHistory, setScoreHistory] = useState(DEFAULT_HISTORY)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchOpportunity()

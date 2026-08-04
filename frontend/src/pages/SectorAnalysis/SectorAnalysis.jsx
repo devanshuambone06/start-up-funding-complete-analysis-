@@ -21,12 +21,35 @@ const options = {
   },
 }
 
+const DEFAULT_SECTORS = [
+  { name: 'Software & AI', fundingB: 315.4, count: 8420, avgValuation: '$120M' },
+  { name: 'Fintech', fundingB: 285.2, count: 5910, avgValuation: '$95M' },
+  { name: 'HealthTech', fundingB: 195.8, count: 4120, avgValuation: '$78M' },
+  { name: 'E-commerce', fundingB: 140.3, count: 3480, avgValuation: '$54M' },
+  { name: 'Cybersecurity', fundingB: 106.1, count: 2150, avgValuation: '$110M' },
+]
+const DEFAULT_GROWTH = [
+  { year: '2019', amount: 142.5 },
+  { year: '2020', amount: 168.2 },
+  { year: '2021', amount: 245.8 },
+  { year: '2022', amount: 210.4 },
+  { year: '2023', amount: 185.6 },
+  { year: '2024', amount: 228.9 },
+]
+const DEFAULT_STARTUPS = [
+  { name: 'Stripe', sector: 'Fintech', stage: 'Series I', fundingRaised: '$8.7B', country: 'USA', rank: 1 },
+  { name: 'Databricks', sector: 'AI & Data', stage: 'Series H', fundingRaised: '$4.2B', country: 'USA', rank: 2 },
+  { name: 'Scale AI', sector: 'AI', stage: 'Series F', fundingRaised: '$1.6B', country: 'USA', rank: 3 },
+  { name: 'Revolut', sector: 'Fintech', stage: 'Series E', fundingRaised: '$1.7B', country: 'GBR', rank: 4 },
+  { name: 'Canva', sector: 'Design', stage: 'Series C', fundingRaised: '$560M', country: 'AUS', rank: 5 },
+]
+
 export default function Sectors() {
-  const [sectors, setSectors] = useState([])
-  const [sectorFunding, setSectorFunding] = useState([])
-  const [fundingGrowth, setFundingGrowth] = useState([])
-  const [topStartups, setTopStartups] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [sectors, setSectors] = useState(DEFAULT_SECTORS)
+  const [sectorFunding, setSectorFunding] = useState(DEFAULT_SECTORS.map(s => ({ sector: s.name, amount: s.fundingB })))
+  const [fundingGrowth, setFundingGrowth] = useState(DEFAULT_GROWTH)
+  const [topStartups, setTopStartups] = useState(DEFAULT_STARTUPS)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     Promise.allSettled([

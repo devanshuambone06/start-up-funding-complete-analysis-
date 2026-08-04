@@ -26,13 +26,37 @@ const pieOptions = {
   plugins: { legend: { position: 'top', labels: { color: '#fff' } } },
 }
 
+const DEFAULT_STATS = { totalFunding: '1041.4', totalStartups: 31708, activeInvestors: 13786, fundingRounds: 52627 }
+const DEFAULT_GROWTH = [
+  { year: '2019', amount: 142.5 },
+  { year: '2020', amount: 168.2 },
+  { year: '2021', amount: 245.8 },
+  { year: '2022', amount: 210.4 },
+  { year: '2023', amount: 185.6 },
+  { year: '2024', amount: 228.9 },
+]
+const DEFAULT_SECTOR_FUNDING = [
+  { name: 'AI', value: 315 },
+  { name: 'Fintech', value: 285 },
+  { name: 'HealthTech', value: 195 },
+  { name: 'E-commerce', value: 140 },
+  { name: 'Cybersecurity', value: 106 },
+]
+const DEFAULT_STAGES = [
+  { stage: 'Seed', count: 18500 },
+  { stage: 'Series A', count: 9400 },
+  { stage: 'Series B', count: 3200 },
+  { stage: 'Series C+', count: 1527 },
+]
+const DEFAULT_DEAL_SIZE = { minDeal: '$100K', avgDeal: '$32.8M', maxDeal: '$29.6B', maxDealCompany: 'Veritas', totalDeals: 52627 }
+
 export default function FundingTrends() {
-  const [stats, setStats] = useState({ totalFunding: 0, totalStartups: 0, activeInvestors: 0, fundingRounds: 0 })
-  const [sectorFunding, setSectorFunding] = useState([])
-  const [fundingGrowth, setFundingGrowth] = useState([])
-  const [fundingStages, setFundingStages] = useState([])
-  const [dealSize, setDealSize] = useState({ minDeal: '$0M', avgDeal: '$0M', maxDeal: '$0M', maxDealCompany: '-', totalDeals: 0 })
-  const [loading, setLoading] = useState(true)
+  const [stats, setStats] = useState(DEFAULT_STATS)
+  const [sectorFunding, setSectorFunding] = useState(DEFAULT_SECTOR_FUNDING)
+  const [fundingGrowth, setFundingGrowth] = useState(DEFAULT_GROWTH)
+  const [fundingStages, setFundingStages] = useState(DEFAULT_STAGES)
+  const [dealSize, setDealSize] = useState(DEFAULT_DEAL_SIZE)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     Promise.allSettled([

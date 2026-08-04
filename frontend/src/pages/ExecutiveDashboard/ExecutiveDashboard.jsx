@@ -22,14 +22,45 @@ const unicornWatch = [
   { name: 'ShopStack',   sector: 'E-commerce', stage: 'Series C', valuation: '$640M', target: '$1B target', raised: '$121M', percentRaised: 64 },
 ]
 
+const DEFAULT_STATS = { totalFunding: '1041.4', totalStartups: 31708, activeInvestors: 13786, fundingRounds: 52627 }
+const DEFAULT_GROWTH = [
+  { year: '2019', amount: 142.5 },
+  { year: '2020', amount: 168.2 },
+  { year: '2021', amount: 245.8 },
+  { year: '2022', amount: 210.4 },
+  { year: '2023', amount: 185.6 },
+  { year: '2024', amount: 228.9 },
+]
+const DEFAULT_SECTOR_FUNDING = [
+  { name: 'AI', value: 315 },
+  { name: 'Fintech', value: 285 },
+  { name: 'HealthTech', value: 195 },
+  { name: 'E-commerce', value: 140 },
+  { name: 'Cybersecurity', value: 106 },
+]
+const DEFAULT_STAGES = [
+  { stage: 'Seed', count: 18500 },
+  { stage: 'Series A', count: 9400 },
+  { stage: 'Series B', count: 3200 },
+  { stage: 'Series C+', count: 1527 },
+]
+const DEFAULT_STARTUPS = [
+  { name: 'Stripe', sector: 'Fintech', stage: 'Series I', fundingRaised: '$8.7B', country: 'USA', rank: 1 },
+  { name: 'Databricks', sector: 'AI & Data', stage: 'Series H', fundingRaised: '$4.2B', country: 'USA', rank: 2 },
+  { name: 'Scale AI', sector: 'AI', stage: 'Series F', fundingRaised: '$1.6B', country: 'USA', rank: 3 },
+  { name: 'Revolut', sector: 'Fintech', stage: 'Series E', fundingRaised: '$1.7B', country: 'GBR', rank: 4 },
+  { name: 'Canva', sector: 'Design', stage: 'Series C', fundingRaised: '$560M', country: 'AUS', rank: 5 },
+]
+const DEFAULT_DEAL_SIZE = { minDeal: '$100K', avgDeal: '$32.8M', maxDeal: '$29.6B', maxDealCompany: 'Veritas', totalDeals: 52627 }
+
 export default function ExecutiveDashboard() {
-  const [stats, setStats] = useState({ totalFunding: 0, totalStartups: 0, activeInvestors: 0, fundingRounds: 0 })
-  const [fundingGrowth, setFundingGrowth] = useState([])
-  const [sectorFunding, setSectorFunding] = useState([])
-  const [fundingStages, setFundingStages] = useState([])
-  const [topStartups, setTopStartups] = useState([])
-  const [dealSize, setDealSize] = useState({ minDeal: '$0M', avgDeal: '$0M', maxDeal: '$0M', maxDealCompany: '-', totalDeals: 0 })
-  const [loading, setLoading] = useState(true)
+  const [stats, setStats] = useState(DEFAULT_STATS)
+  const [fundingGrowth, setFundingGrowth] = useState(DEFAULT_GROWTH)
+  const [sectorFunding, setSectorFunding] = useState(DEFAULT_SECTOR_FUNDING)
+  const [fundingStages, setFundingStages] = useState(DEFAULT_STAGES)
+  const [topStartups, setTopStartups] = useState(DEFAULT_STARTUPS)
+  const [dealSize, setDealSize] = useState(DEFAULT_DEAL_SIZE)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     Promise.allSettled([

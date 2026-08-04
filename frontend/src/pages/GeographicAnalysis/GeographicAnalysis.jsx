@@ -18,15 +18,31 @@ function uniqueSorted(arr) {
   return [...new Set(arr)].filter(Boolean).sort()
 }
 
+const DEFAULT_HUBS = [
+  { region: 'Silicon Valley, California, USA', city: 'San Francisco', state: 'California', country: 'USA', funding: 345000000000, startups: 8420, growth: 24.5 },
+  { region: 'New York City, New York, USA', city: 'New York', state: 'New York', country: 'USA', funding: 185000000000, startups: 4910, growth: 19.2 },
+  { region: 'London, Greater London, GBR', city: 'London', state: 'Greater London', country: 'GBR', funding: 92000000000, startups: 3120, growth: 16.8 },
+  { region: 'Bengaluru, Karnataka, IND', city: 'Bengaluru', state: 'Karnataka', country: 'IND', funding: 68000000000, startups: 2840, growth: 31.4 },
+  { region: 'Berlin, Berlin, DEU', city: 'Berlin', state: 'Berlin', country: 'DEU', funding: 42000000000, startups: 1650, growth: 14.1 },
+  { region: 'Singapore, Central Region, SGP', city: 'Singapore', state: 'Central Region', country: 'SGP', funding: 39000000000, startups: 1480, growth: 22.7 },
+]
+const DEFAULT_SECTOR_MIX = [
+  { name: 'Fintech', value: 35 },
+  { name: 'AI & Data', value: 28 },
+  { name: 'HealthTech', value: 18 },
+  { name: 'Enterprise', value: 12 },
+  { name: 'Other', value: 7 },
+]
+
 export default function GeographicAnalysis() {
   const [view, setView] = useState('Growth')
   const [country, setCountry] = useState('All Countries')
   const [state, setState] = useState('All States')
   const [city, setCity] = useState('All Cities')
-  const [hubs, setHubs] = useState([])
-  const [sectorMix, setSectorMix] = useState([])
-  const [globalInvestors, setGlobalInvestors] = useState(0)
-  const [loading, setLoading] = useState(true)
+  const [hubs, setHubs] = useState(DEFAULT_HUBS)
+  const [sectorMix, setSectorMix] = useState(DEFAULT_SECTOR_MIX)
+  const [globalInvestors, setGlobalInvestors] = useState(13786)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     fetchGeographic()

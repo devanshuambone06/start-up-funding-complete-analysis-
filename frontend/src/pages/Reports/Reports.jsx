@@ -284,11 +284,24 @@ async function generatePDF(overview, trends, sectors, reportTitle = 'Executive S
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+const DEFAULT_TEMPLATES = [
+  { key: 'executive', title: 'Executive Market Overview', desc: 'High-level funding totals, unicorn candidates, top sectors, and key investor metrics.' },
+  { key: 'funding_trends', title: 'Funding & Valuation Trends', desc: 'Historical investment growth, stage-by-stage distribution, and average deal sizes.' },
+  { key: 'sector_analysis', title: 'Sectoral Deep-Dive Report', desc: 'AI, Fintech, HealthTech, and CleanTech performance analytics and growth trajectory.' },
+  { key: 'investor_network', title: 'Investor Network Intelligence', desc: 'Lead investor PageRank centrality, syndicate activity, and portfolio density.' },
+]
+const DEFAULT_RECENT = [
+  { name: 'Q4 Global Venture Funding Digest', date: '2024-11-15', format: 'PDF', size: '1.4 MB' },
+  { name: 'AI & Machine Learning Sector Special', date: '2024-10-28', format: 'PDF', size: '2.1 MB' },
+  { name: 'Fintech Valuation Benchmarks 2024', date: '2024-09-12', format: 'PDF', size: '1.8 MB' },
+]
+const DEFAULT_STATS = { totalReports: 142, templates: 4, generatedThisMonth: 18, totalDownloads: 1240 }
+
 export default function Reports() {
-  const [templates, setTemplates] = useState([])
-  const [recentReports, setRecentReports] = useState([])
-  const [stats, setStats] = useState({ totalReports: 0, templates: 0, generatedThisMonth: 0, totalDownloads: 0 })
-  const [loading, setLoading] = useState(true)
+  const [templates, setTemplates] = useState(DEFAULT_TEMPLATES)
+  const [recentReports, setRecentReports] = useState(DEFAULT_RECENT)
+  const [stats, setStats] = useState(DEFAULT_STATS)
+  const [loading, setLoading] = useState(false)
   const [generating, setGenerating] = useState(null)
   const dataRef = useRef({ overview: null, trends: null, sectors: [] })
 
