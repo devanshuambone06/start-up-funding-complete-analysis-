@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './FundingTrends.css'
 import {
   Chart as ChartJS, CategoryScale, LinearScale, PointElement,
@@ -58,15 +58,16 @@ export default function FundingTrends() {
   const [dealSize, setDealSize] = useState(DEFAULT_DEAL_SIZE)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+  // Try to enrich from backend silently — keep defaults on failure
+  useState(() => {
     Promise.allSettled([
       fetchOverview(),
       fetchFundingTrends(),
     ]).then(([overviewRes, trendsRes]) => {
       if (overviewRes.status === 'fulfilled' && overviewRes.value) {
         const ov = overviewRes.value
-        setStats({
-          totalFunding: ov.totalFundingB || 0,
+        if (ov.totalFundingB) setStats({
+          totalFunding: ov.totalFundingB,
           totalStartups: ov.totalCompanies || 0,
           activeInvestors: ov.activeInvestors || 0,
           fundingRounds: ov.totalRounds || 0,
@@ -79,9 +80,8 @@ export default function FundingTrends() {
         if (data.fundingStages?.length) setFundingStages(data.fundingStages)
         if (data.dealSize && Object.keys(data.dealSize).length) setDealSize(data.dealSize)
       }
-    })
-    .finally(() => setLoading(false))
-  }, [])
+    }).catch(() => {})
+  })
 
   const barData = {
     labels: sectorFunding.map((item) => item.name || item.sector),
