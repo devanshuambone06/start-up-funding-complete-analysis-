@@ -173,7 +173,7 @@ export default function StartupPerformance() {
                     <td className="py-3.5 text-white font-medium">{s.name}</td>
                     <td className="py-3.5"><span style={sectorStyle(s.sector)} className="inline-block px-2.5 py-1 rounded-md text-xs border">{s.sector}</span></td>
                     <td className="py-3.5" style={{ color: '#c3c8d4' }}>{s.stage}</td>
-                    <td className="py-3.5 text-right text-white font-semibold">{s.totalFunding}</td>
+                    <td className="py-3.5 text-right text-white font-semibold">{s.fundingRaised || s.totalFunding || (s.totalFundingUSD ? `$${(s.totalFundingUSD / 1e6).toFixed(1)}M` : '—')}</td>
                   </tr>
                 ))
               )}

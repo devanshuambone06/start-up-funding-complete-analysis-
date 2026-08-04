@@ -27,11 +27,11 @@ const DEFAULT_HUBS = [
   { region: 'Singapore, Central Region, SGP', city: 'Singapore', state: 'Central Region', country: 'SGP', funding: 39000000000, startups: 1480, growth: 22.7 },
 ]
 const DEFAULT_SECTOR_MIX = [
-  { name: 'Fintech', value: 35 },
-  { name: 'AI & Data', value: 28 },
-  { name: 'HealthTech', value: 18 },
-  { name: 'Enterprise', value: 12 },
-  { name: 'Other', value: 7 },
+  { name: 'Fintech', value: 35, color: '#3b82f6' },
+  { name: 'AI & Data', value: 28, color: '#8b5cf6' },
+  { name: 'HealthTech', value: 18, color: '#22d3a7' },
+  { name: 'Enterprise', value: 12, color: '#f59e0b' },
+  { name: 'Other', value: 7, color: '#ec4899' },
 ]
 
 export default function GeographicAnalysis() {
@@ -89,7 +89,7 @@ export default function GeographicAnalysis() {
     const totalFunding = filteredSorted.reduce((sum, h) => sum + (h.funding || h.fundingB || 0), 0)
     const totalStartups = filteredSorted.reduce((sum, h) => sum + (h.startups || 0), 0)
     const avgGrowth = filteredSorted.length ? filteredSorted.reduce((sum, h) => sum + (h.growth || 0), 0) / filteredSorted.length : 0
-    return { totalfunding: totalFunding, hubs: filteredSorted.length, startups: totalStartups, avgYoyGrowth: avgGrowth, investors: globalInvestors }
+    return { totalfunding: totalFunding / 1e9, hubs: filteredSorted.length, startups: totalStartups, avgYoyGrowth: avgGrowth, investors: globalInvestors }
   }, [filteredSorted, globalInvestors])
 
   return (
@@ -172,7 +172,7 @@ export default function GeographicAnalysis() {
                 <tr key={h.city} className="border-b border-slate-800/60 last:border-0">
                   <td className="py-3"><span className="w-6 h-6 rounded-full bg-violet-500/15 text-violet-300 text-xs flex items-center justify-center">{i + 1}</span></td>
                   <td className="py-3"><p className="text-slate-200 font-medium">{h.city}</p><p className="text-slate-500 text-xs">{h.region}</p></td>
-                  <td className="py-3 text-violet-300 font-mono">${(h.funding || h.fundingB || 0).toFixed(1)}B</td>
+                  <td className="py-3 text-violet-300 font-mono">${((h.funding || h.fundingB || 0) / 1e9).toFixed(1)}B</td>
                   <td className="py-3 text-slate-300">{h.startups}</td>
                   <td className="py-3 text-right"><Badge tone="green">+{h.growth}%</Badge></td>
                 </tr>
